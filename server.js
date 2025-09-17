@@ -11,7 +11,8 @@ app.get("/product/:asin", async (req, res) => {
     const url = `https://www.amazon.com/dp/${asin}`;
     const response = await axios.get(url, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Accept-Language": "en-US,en;q=0.9"
       }
     });
@@ -23,11 +24,13 @@ app.get("/product/:asin", async (req, res) => {
     const image = $("#landingImage").attr("src");
     const rating = $("span.a-icon-alt").first().text().trim();
     const reviews = $("#acrCustomerReviewText").text().trim();
-    const bsr = $("#SalesRank").text().trim() || $("th:contains('Best Sellers Rank')").next().text().trim();
+    const bsr =
+      $("#SalesRank").text().trim() ||
+      $("th:contains('Best Sellers Rank')").next().text().trim();
 
     res.json({ asin, title, image, rating, reviews, bsr });
   } catch (err) {
-    console.error(err.message);
+    console.error("Scraping error:", err.message);
     res.status(500).json({ error: "Failed to fetch product data" });
   }
 });
